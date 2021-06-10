@@ -1,0 +1,23 @@
+.container {
+    max-width: 1140px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    margin-bottom: 2em;
+}
+
+.widget-container {
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 1140px;
+    background-color: white;
+}

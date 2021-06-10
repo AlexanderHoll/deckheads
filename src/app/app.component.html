@@ -1,0 +1,43 @@
+<div class="container">
+  <h3 class="text-primary">Deckheads app</h3>
+
+  <div class="container card-container">
+    <div *ngFor='let post of allPosts; index as i;' class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{post.pictures.large}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{post.name}}</h5>
+        <p class="card-text">{{post.key}}</p>
+        <p class="card-text">{{post.url}}</p>
+        <!-- Check allTags, ? safe navigator operator prevents null values being shown. -->
+        <div *ngIf="allTags[i]?.name">
+          <p>{{allTags[i].name}}</p>
+        </div>
+        <button (click)="toggleWidget($event)" id="{{i}}"class="btn btn-primary">Play</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="player" class="widget-container">
+    <iframe id="mixcloudPlayer" width="100%" height="60" frameborder="0" [src]="widgetUrl | safe"></iframe>
+
+    <script type="text/javascript">
+      var promise = Mixcloud.FooterWidget(document.getElementById('mixcloudPlayer'));
+      promise.then(function(widget) {
+          // Put code that interacts with the widget here e.g.
+          // widget.events.pause.on(pauseListener);
+          widget.events.pause.on(togglePlayPause);
+
+          // non-working functions
+          // widget.events.pause.on(togglePlayPause);
+          // widget.events.play.on(togglePlayPause);
+          // widget.disableUnloadWarning(true);
+          // hide_artwork: false;
+
+          widget.FooterWidget.disableUnloadWarning(true);
+      });
+    </script>
+    <script src="//widget.mixcloud.com/media/js/footerWidgetApi.js" async>
+      {"feed"; "/DeckHeadsFM/";}
+    </script>
+  </div>
+</div>
